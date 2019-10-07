@@ -5,7 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayLobbyController : MonoBehaviourPunCallbacks
+public class LobbyController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject startButton;
