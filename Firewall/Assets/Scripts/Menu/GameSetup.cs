@@ -7,7 +7,15 @@ using System.IO;
 
 public class GameSetup : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameSetup gameSetup;
+    public Transform[] spawnPoints;
+
+    private void OnEnable() {
+        if(GameSetup.gameSetup == null) {
+            GameSetup.gameSetup = this;
+        }    
+    }
+
     void Start()
     {
         CreatePlayer();
@@ -15,9 +23,11 @@ public class GameSetup : MonoBehaviour
 
     private void CreatePlayer() {
         Debug.Log("Creating player");
+        int spawnPointNum = Random.Range(0, spawnPoints.Length);
         PhotonNetwork.Instantiate(
             Path.Combine("PhotonPrefabs", "PhotonPlayer"), 
-            Vector3.zero, 
-            Quaternion.identity);
+            spawnPoints[spawnPointNum].position, 
+            spawnPoints[spawnPointNum].rotation
+        );
     }
 }
