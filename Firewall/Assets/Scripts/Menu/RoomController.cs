@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomController : MonoBehaviour
+using Photon.Pun;
+
+public class RoomController : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField]
+    private int multiplayerSceneIndex;
+
+    public override void OnEnable() {
+        PhotonNetwork.AddCallbackTarget(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void OnDisable() {
+        PhotonNetwork.RemoveCallbackTarget(this);
+    }
+
+    public override void OnJoinedRoom() {
+        Debug.Log("Joined room");
+        StartGame();
+    }
+
+    private void StartGame() {
+        if(PhotonNetwork.IsMasterClient) {
+            Debug.Log("Starting game!");
+            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+        }
     }
 }
