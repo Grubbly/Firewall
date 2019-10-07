@@ -15,6 +15,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     private int roomSize;
 
     public override void OnConnectedToMaster() {
+        Debug.Log("Player has joined Photon master server");
         PhotonNetwork.AutomaticallySyncScene = true;
         startButton.SetActive(true);
     }
@@ -41,7 +42,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
             IsOpen = true,
             MaxPlayers = (byte)roomSize
         };
-        PhotonNetwork.CreateRoom("Creating room named: Room" + roomNumber, roomOptions);
+        PhotonNetwork.CreateRoom("Room" + roomNumber, roomOptions);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) {

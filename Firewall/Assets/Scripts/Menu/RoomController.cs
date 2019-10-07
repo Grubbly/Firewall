@@ -18,7 +18,9 @@ public class RoomController : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedRoom() {
-        Debug.Log("Joined room");
+        string playerName = "Grubbling" + PhotonNetwork.PlayerList.Length.ToString();
+        PhotonNetwork.NickName = playerName;
+        Debug.Log(playerName + " joined room");
         StartGame();
     }
 

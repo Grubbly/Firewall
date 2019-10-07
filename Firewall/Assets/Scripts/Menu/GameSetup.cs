@@ -21,13 +21,14 @@ public class GameSetup : MonoBehaviour
         CreatePlayer();
     }
 
+    // Instantiate player controller
     private void CreatePlayer() {
         Debug.Log("Creating player");
         int spawnPointNum = Random.Range(0, spawnPoints.Length);
         PhotonNetwork.Instantiate(
-            Path.Combine("PhotonPrefabs", "PhotonPlayer"), 
-            spawnPoints[spawnPointNum].position, 
-            spawnPoints[spawnPointNum].rotation
+            Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), 
+            Vector3.zero, 
+            Quaternion.identity
         );
     }
 }
