@@ -18,7 +18,14 @@ public class GameSetup : MonoBehaviour
 
     void Start()
     {
+        setPlayerDetails();
         CreatePlayer();
+    }
+
+    private void setPlayerDetails() {
+        string playerName = "Grubbling" + PhotonNetwork.PlayerList.Length.ToString();
+        PhotonNetwork.NickName = playerName;
+        Debug.Log(playerName + " joined room");
     }
 
     // Instantiate player controller
