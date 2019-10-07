@@ -22,7 +22,8 @@ public class PhotonPlayer : MonoBehaviour
 
         // Instantiate Avatar
         if(photonView.IsMine){
-            avatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonAvatar"),
+            avatar = PhotonNetwork.Instantiate(
+            Path.Combine("PhotonPrefabs", "PhotonAvatar"),
             GameSetup.gameSetup.spawnPoints[spawnPointNum].position,
             GameSetup.gameSetup.spawnPoints[spawnPointNum].rotation,
             0);

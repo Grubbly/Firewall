@@ -23,7 +23,7 @@ public class GameSetup : MonoBehaviour
     }
 
     private void setPlayerDetails() {
-        string playerName = "Grubbling" + PhotonNetwork.PlayerList.Length.ToString();
+        string playerName = PlayerInfo.playerInfo.username + "_Grubbling_" + PhotonNetwork.PlayerList.Length.ToString();
         PhotonNetwork.NickName = playerName;
         Debug.Log(playerName + " joined room");
     }
