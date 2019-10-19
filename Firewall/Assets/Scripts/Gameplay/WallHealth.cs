@@ -34,7 +34,7 @@ public class WallHealth : MonoBehaviour
             if(photonView.IsMine) {
                 photonView.RPC("RPC_HandleWallCollision", RpcTarget.AllBuffered);
             }
-            
+
             Destroy(other.gameObject);
             Destroy(effect, 1f);
         }
@@ -48,7 +48,7 @@ public class WallHealth : MonoBehaviour
                 gameObject.transform.rotation
             );
             Destroy(effect, 1f);
-            Destroy(gameObject, 1.5f);
+            Destroy(gameObject);
         }
     }
 

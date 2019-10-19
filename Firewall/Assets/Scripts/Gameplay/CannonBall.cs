@@ -13,7 +13,7 @@ public class CannonBall : MonoBehaviourPun
 
     IEnumerator destroyCannonBall() {
         yield return new WaitForSeconds(ttl);
-        photonView.RPC("RPC_DestroyCannonBall", RpcTarget.All);
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
@@ -23,13 +23,11 @@ public class CannonBall : MonoBehaviourPun
         rb.AddForce(transform.forward * thrust);
 
         photonView = GetComponent<PhotonView>();
-        if(photonView.IsMine) {
-            StartCoroutine("destroyCannonBall");
-        }
+        StartCoroutine("destroyCannonBall");
     }
 
     [PunRPC]
     public void RPC_DestroyCannonBall() {
-        Destroy(gameObject);
+        
     }
 }
