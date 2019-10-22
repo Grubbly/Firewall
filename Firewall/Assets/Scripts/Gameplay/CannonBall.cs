@@ -25,9 +25,4 @@ public class CannonBall : MonoBehaviourPun
         photonView = GetComponent<PhotonView>();
         StartCoroutine("destroyCannonBall");
     }
-
-    [PunRPC]
-    public void RPC_DestroyCannonBall() {
-        
-    }
 }

@@ -12,14 +12,16 @@ public class WallHealth : MonoBehaviour
     private GameObject hitEffect;
     [SerializeField]
     private GameObject destroyEffect;
+    [SerializeField]
+    private WallManager wallManager;
     private PhotonView photonView;
-    public int health;
+    
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        health = maxHealth;
         photonView = GetComponent<PhotonView>();
+        wallManager.register(photonView.ViewID, maxHealth);
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -31,9 +33,7 @@ public class WallHealth : MonoBehaviour
                 other.gameObject.GetComponent<Rigidbody>().rotation
             );
 
-            if(photonView.IsMine) {
-                photonView.RPC("RPC_HandleWallCollision", RpcTarget.AllBuffered);
-            }
+            wallManager.takeDamage(photonView.ViewID, 1);
 
             Destroy(other.gameObject);
             Destroy(effect, 1f);
@@ -41,7 +41,7 @@ public class WallHealth : MonoBehaviour
     }
 
     private void Update() {
-        if(health <= 0) {
+        if(wallManager.getHealth(photonView.ViewID) <= 0) {
             GameObject effect = Instantiate(
                 destroyEffect, 
                 gameObject.transform.position,
@@ -50,15 +50,5 @@ public class WallHealth : MonoBehaviour
             Destroy(effect, 1f);
             Destroy(gameObject);
         }
-    }
-
-    [PunRPC]
-    public void RPC_HandleWallCollision() {
-        health--;
-    }
-
-    [PunRPC]
-    public void RPC_DestroyOnContact(GameObject target) {
-        PhotonNetwork.Destroy(target);
     }
 }
