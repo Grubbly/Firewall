@@ -42,8 +42,10 @@ public class Terminal : MonoBehaviourPun, IPunOwnershipCallbacks
             return;
         }
 
-        photonView.RPC("RPC_SetConsoleState", RpcTarget.AllBuffered, true);
-        console.SetActive(true);  
+        if(photonView.IsMine) {
+            photonView.RPC("RPC_SetConsoleState", RpcTarget.AllBuffered, true);
+            console.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -59,14 +61,10 @@ public class Terminal : MonoBehaviourPun, IPunOwnershipCallbacks
     }
 
     private void OnTriggerExit(Collider other) {
-        
-        PhotonView view = other.GetComponent<PhotonView>();
-        
-        if(view) {
-            if(view.IsMine) {
-                console.SetActive(false);
-                photonView.RPC("RPC_SetConsoleState", RpcTarget.AllBuffered, false);
-            }
+        if(photonView.IsMine && photonView.Owner.Equals(other.GetComponent<PhotonView>().Owner)) {
+            Debug.Log(other.gameObject.GetComponent<PhotonView>().Owner.NickName + " is shutting down console");
+            console.SetActive(false);
+            photonView.RPC("RPC_SetConsoleState", RpcTarget.AllBuffered, false);
         }
     }
 
