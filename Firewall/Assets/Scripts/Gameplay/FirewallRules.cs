@@ -7,11 +7,20 @@ public class FirewallRules : MonoBehaviour
 {
     [SerializeField]
     private TerminalManager terminalManager;
+    [SerializeField]
+    private GameObject firewall;
     public List<string> rules;
 
     void Start()
     {
-        PhotonView view = GetComponent<PhotonView>();
-        terminalManager.register(view.ViewID, rules);
+        terminalManager.register(gameObject);
+    }
+
+    public void enableFirewall() {
+        firewall.SetActive(true);
+    }
+
+    public void disableFirewall() {
+        firewall.SetActive(false);
     }
 }

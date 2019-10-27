@@ -29,11 +29,11 @@ public class WallManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if(stream.IsWriting) {
-            Debug.Log("LOCAL CLIENT STREAM");
+            Debug.Log("WALL LOCAL CLIENT STREAM");
             stream.SendNext(wallHealths);
         } 
         else {
-            Debug.Log("REMOTE CLIENT STREAM");
+            Debug.Log("WALL REMOTE CLIENT STREAM");
             this.wallHealths = (Dictionary<int, int>)stream.ReceiveNext();
         }
     }
