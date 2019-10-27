@@ -45,6 +45,7 @@ public class Terminal : MonoBehaviourPun, IPunOwnershipCallbacks
         if(photonView.IsMine) {
             photonView.RPC("RPC_SetConsoleState", RpcTarget.AllBuffered, true);
             console.SetActive(true);
+            console.GetComponent<FirewallRuleInput>().terminalID = photonView.ViewID;
         }
     }
 
