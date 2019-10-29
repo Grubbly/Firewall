@@ -88,11 +88,9 @@ public class TerminalManager : MonoBehaviourPunCallbacks, IPunObservable
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if(stream.IsWriting) {
             Debug.Log("TERMINAL LOCAL CLIENT STREAM");
-            // stream.SendNext(firewalls);
         } 
         else {
             Debug.Log("TERMINAL REMOTE CLIENT STREAM");
-            // this.firewalls = (Dictionary<int, Dictionary<string, bool>>)stream.ReceiveNext();
         }
     }
 
